@@ -1,7 +1,6 @@
 Sub PLAN_TRANSP()
-'
-' PLAN_TRANSP Macro
-' GERA PLANILHA PARA A TV
+'AUTOR: THIAGO BASTOS / git: thiagohbastos
+'GERA UM RELATÓRIO PARA TV COM OS FILTROS ATUAIS
 
 Dim ultima_linha As Integer
 
