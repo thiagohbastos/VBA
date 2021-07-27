@@ -22,6 +22,7 @@ lastline = ActiveCell.Row - 1
 
 Sheets("SID_FALTA_RESSARCIMENTO").Select
 
+If lastline > 3 Then
     Range("BD6").Select
     ActiveCell.FormulaR1C1 = "=Ressarcimento!R[-3]C[-55]"
     Selection.AutoFill Destination:=Range("BD6:BD" & lastline + 3), Type:=xlFillDefault
@@ -34,25 +35,47 @@ Sheets("SID_FALTA_RESSARCIMENTO").Select
     Selection.FormulaR1C1 = "=Ressarcimento!R[-3]C[-53]"
     Selection.AutoFill Destination:=Range("BG6:BG" & lastline + 3), Type:=xlFillDefault
 
-'Gerando os valores que serão transferidos para a ficha a partir da aba de preenchimento.
+    'Gerando os valores que serão transferidos para a ficha a partir da aba de preenchimento.
 
     Range("BH6").Select
-tes = "BH6:BH" & lastline + 3
+    tes = "BH6:BH" & lastline + 3
     Selection.AutoFill Destination:=Range(tes)
     
     Range("BI6").Select
-digito = "BI6:BI" & lastline + 3
+    digito = "BI6:BI" & lastline + 3
     Selection.AutoFill Destination:=Range(digito)
     
     Range("BJ6").Select
-nome_arquivo = "BJ6:BJ" & lastline + 3
+    nome_arquivo = "BJ6:BJ" & lastline + 3
     Selection.AutoFill Destination:=Range(nome_arquivo)
     
-'Iniciando loop, descrevendo nome e local de salvamento do arquivo e, enviando as informações extraídas do preenchimento para as fichas.
+Else
+        Range("BD6").Select
+    ActiveCell.FormulaR1C1 = "=Ressarcimento!R[-3]C[-55]"
+    
+    Range("BE6").Select
+    ActiveCell.FormulaR1C1 = "=Ressarcimento!R[-3]C[-55]"
+
+    Range("BG6").Select
+    Selection.FormulaR1C1 = "=Ressarcimento!R[-3]C[-53]"
+
+    'Gerando os valores que serão transferidos para a ficha a partir da aba de preenchimento.
+
+    Range("BH6").Select
+    tes = "BH6"
+    
+    Range("BI6").Select
+    digito = "BI6"
+    
+    Range("BJ6").Select
+    nome_arquivo = "BJ6"
+
+End If
     
 linha = 6
     
 Do Until Cells(linha, 56) = ""
+
     
 Dim pastanome As String
 pastanome = "K:\GSAS\09 - Coordenacao Gestao Numerario\03 Gestao de Diferencas\DEVEDORES E CREDORES\PDFs Ressarcimento\" & Cells(linha, 62).Value & ".pdf"
@@ -82,17 +105,26 @@ Loop
     Range(Selection, Selection.End(xlDown)).Select
     Selection.ClearContents
     
-    
-Sheets("Ressarcimento").Select
-Range("D3").Select
-ActiveCell.FormulaR1C1 = "=SID_FALTA_RESSARCIMENTO!R[3]C[54]"
-Selection.AutoFill Destination:=Range("D3:D" & lastline)
-Range("D3:D" & lastline).Select
-Selection.Copy
-Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-        :=False, Transpose:=False
-    Application.CutCopyMode = False
-
+If lastline > 3 Then
+    Sheets("Ressarcimento").Select
+    Range("D3").Select
+    ActiveCell.FormulaR1C1 = "=SID_FALTA_RESSARCIMENTO!R[3]C[54]"
+    Selection.AutoFill Destination:=Range("D3:D" & lastline)
+    Range("D3:D" & lastline).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+            :=False, Transpose:=False
+        Application.CutCopyMode = False
+Else
+    Sheets("Ressarcimento").Select
+    Range("D3").Select
+    ActiveCell.FormulaR1C1 = "=SID_FALTA_RESSARCIMENTO!R[3]C[54]"
+    Range("D3").Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+            :=False, Transpose:=False
+        Application.CutCopyMode = False
+End If
 'Apagando dados da ficha e ocultando-a:
 
 Sheets("SID_FALTA_RESSARCIMENTO").Select
