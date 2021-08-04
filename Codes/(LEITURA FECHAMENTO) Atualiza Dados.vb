@@ -1,6 +1,5 @@
 Sub Atualiza_Dados()
-'AUTOR: THIAGO BASTOS
-'MATRÍCULA: Y040340
+'AUTOR: THIAGO BASTOS / git: thiagohbastos
 
 Dim PathName As String
 Dim ControlFile As String

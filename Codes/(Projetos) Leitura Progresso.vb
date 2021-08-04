@@ -1,6 +1,6 @@
 Sub Leitura_Projetos()
 
-'AUTOR: THIAGO BASTOS /
+'AUTOR: THIAGO BASTOS / git: thiagohbastos
 
 Application.ScreenUpdating = False
 
